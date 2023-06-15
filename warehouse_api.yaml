@@ -38,6 +38,15 @@ paths:
       responses:
         '201':
           description: Products saved
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
     put:
       summary: Sell product
       tags:
@@ -62,6 +71,22 @@ paths:
       responses:
         '201':
           description: Inventory saved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
     put:
       summary: Update article stock
       tags:

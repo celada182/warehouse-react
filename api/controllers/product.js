@@ -1,5 +1,5 @@
 const importProducts = (req, res, next) => {
-  res.json({message: "POST new product"}); // dummy function for now
+  res.json({message: req.body}); // dummy function for now
 };
 
 module.exports = {importProducts: importProducts};
