@@ -9,26 +9,83 @@ paths:
   /products:
     get:
       summary: Get all products
+      tags:
+        - Products
       parameters:
         - name: pageSize
           in: query
         - name: offset
           in: query
       responses:
-        "200":
-          description: "Products page read"
+        '200':
+          description: Products page read
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+    post:
+      summary: Import products
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Products'
+      responses:
+        '201':
+          description: Products saved
+    put:
+      summary: Sell product
+      tags:
+        - Products
+      parameters:
+        - name: name
+          in: query
+      responses:
+        '201':
+          description: Inventory updated
+  /inventory:
+    post:
+      summary: Import inventory
+      tags:
+        - Inventory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Inventory'
+      responses:
+        '201':
+          description: Inventory saved
+    put:
+      summary: Update article stock
+      tags:
+        - Inventory
+      parameters:
+        - name: art_id
+          in: query
+        - name: amount
+          in: query
+        - name: operation
+          in: query
+          schema:
+            type: string
+            enum: [ discount ]
+      responses:
+        '201':
+          description: Article updated
+
 components:
   schemas:
     Article:
       type: object
       properties:
-        id:
+        art_id:
           type: string
         name:
           type: string
@@ -40,6 +97,20 @@ components:
         name:
           type: string
         contain_articles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Article'
+    Products:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    Inventory:
+      type: object
+      properties:
+        inventory:
           type: array
           items:
             $ref: '#/components/schemas/Article'
