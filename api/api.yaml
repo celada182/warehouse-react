@@ -40,6 +40,13 @@ paths:
       responses:
         '201':
           description: Products saved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    message: string
         '400':
           description: Invalid request
           content:
@@ -56,9 +63,27 @@ paths:
       parameters:
         - name: name
           in: query
+        - name: amount
+          in: query
       responses:
-        '201':
+        '200':
           description: Inventory updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Product not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
   /inventory:
     post:
       summary: Import inventory

@@ -11,6 +11,7 @@ function readRequest(body, res) {
   body.inventory.forEach(article => {
     upsertArticle(article)
   });
+  res.status(201);
   res.json({message: "Inventory saved"});
 }
 

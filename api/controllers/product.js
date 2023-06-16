@@ -11,13 +11,37 @@ const getProducts = async (req, res) => {
   const products = await Product.find({}, null,
       {skip: offset, limit: pageSize});
   for (const product of products) {
-    const processedProduct = await processProduct(product, response);
+    const processedProduct = await processProduct(product);
     response.push(processedProduct);
   }
   res.json(response);
 }
 
-async function processProduct(product, response) {
+const sellProduct = async (req, res) => {
+  const name = req.query.name;
+  const amount = req.query.amount;
+  const product = await Product.findOne({name: name});
+  const articles = await findArticles(product.contain_articles);
+  const stock = calculateStock(product.contain_articles, articles);
+  const isAvailable = stock >= amount;
+  if (isAvailable){
+    await updateArticles(product.contain_articles, articles, amount);
+    res.json({message: "Products sold"});
+  } else {
+    res.status(404);
+    res.json({error: "Product is not available at the moment"});
+  }
+}
+
+async function updateArticles(contain_articles, articles, amount) {
+  for (const contain_article of contain_articles) {
+    const article = articles.find(a => a._id === contain_article.art_id);
+    const stock = article.stock - (contain_article.amount_of * amount);
+    await Article.updateOne({_id: article._id}, {stock: stock});
+  }
+}
+
+async function processProduct(product) {
   const json = product.toJSON();
   const articles = await findArticles(json.contain_articles);
   const stock = calculateStock(json.contain_articles, articles);
@@ -32,6 +56,7 @@ function readRequest(body, res) {
   body.products.forEach(article => {
     insertProduct(article)
   });
+  res.status(201);
   res.json({message: "Products saved"});
 }
 
@@ -52,7 +77,8 @@ function calculateStock(contain_articles, articles) {
   let stock = 0;
   for (const contain_article of contain_articles) {
     const article = articles.find(a => a._id === contain_article.art_id);
-    const availableProducts = Math.floor(article.stock / contain_article.amount_of);
+    const availableProducts = Math.floor(
+        article.stock / contain_article.amount_of);
     if (stock === 0) {
       stock = availableProducts;
     }
@@ -68,4 +94,8 @@ async function findArticles(contain_articles) {
   return Article.find({'_id': {$in: ids}});
 }
 
-module.exports = {importProducts: importProducts, getProducts: getProducts};
+module.exports = {
+  importProducts: importProducts,
+  getProducts: getProducts,
+  sellProduct: sellProduct
+};
