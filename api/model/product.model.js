@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
-import Article from "./article.model";
-const { Schema } = mongoose;
+
+const {Schema} = mongoose;
 
 const product = new Schema({
-  name: String,
-  contain_articles: [Article]
+  name: {type: String, unique: true},
+  contain_articles: [{
+    art_id: String,
+    amount_of: Number
+  }]
 });
 
 module.exports = mongoose.model("Product", product);

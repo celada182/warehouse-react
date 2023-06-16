@@ -1,6 +1,6 @@
 const Article = require('../model/article.model');
 const importInventory = (req, res, next) => {
-  readRequest(req.body, res); // dummy function for now
+  readRequest(req.body, res);
 };
 
 function readRequest(body, res) {
@@ -15,6 +15,7 @@ function readRequest(body, res) {
 }
 
 function upsertArticle(article) {
+  // TODO Input Validation
   if (article.art_id) {
     let stock = article.stock;
     Article.findOne({_id: article.art_id})
