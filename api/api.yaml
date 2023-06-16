@@ -14,8 +14,10 @@ paths:
       parameters:
         - name: pageSize
           in: query
+          example: 10
         - name: offset
           in: query
+          example: 0
       responses:
         '200':
           description: Products page read
@@ -112,19 +114,31 @@ components:
       properties:
         art_id:
           type: string
+          example: '1'
         name:
           type: string
+          example: 'leg'
         stock:
           type: integer
+          example: 1
     Product:
       type: object
       properties:
         name:
           type: string
+          example: 'Dinning Table'
         contain_articles:
           type: array
           items:
-            $ref: '#/components/schemas/Article'
+            type: object
+            properties:
+              art_id:
+                type: string
+                example: '1'
+              amount_of:
+                type: string
+                example: '1'
+
     Products:
       type: object
       properties:
