@@ -21,5 +21,5 @@ mongoose.connect("mongodb://localhost:27017/warehouse-react")
     console.log(`Server Started at ${port}`);
   })
 }).catch(error => {
-  console.log("API cannot connect to the DB:", error);
+  console.error("API cannot connect to the DB:", error);
 });
