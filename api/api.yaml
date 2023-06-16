@@ -12,7 +12,7 @@ paths:
       tags:
         - Products
       parameters:
-        - name: pageSize
+        - name: page_size
           in: query
           example: 10
         - name: offset
@@ -26,7 +26,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Product'
+                  $ref: '#/components/schemas/ProductAvailable'
     post:
       summary: Import products
       tags:
@@ -120,7 +120,15 @@ components:
               amount_of:
                 type: string
                 example: '1'
-
+    ProductAvailable:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 'Dinning Table'
+        stock:
+          type: number
+          example: 2
     Products:
       type: object
       properties:
