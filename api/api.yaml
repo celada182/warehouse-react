@@ -89,24 +89,6 @@ paths:
                 properties:
                   error:
                     type: string
-    put:
-      summary: Update article stock
-      tags:
-        - Inventory
-      parameters:
-        - name: art_id
-          in: query
-        - name: amount
-          in: query
-        - name: operation
-          in: query
-          schema:
-            type: string
-            enum: [ discount ]
-      responses:
-        '201':
-          description: Article updated
-
 components:
   schemas:
     Article:

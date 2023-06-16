@@ -15,7 +15,7 @@ app.use('/product', product);
 dotenv.config();
 const port = process.env.PORT || DEFAULT_PORT;
 
-mongoose.connect("mongodb://localhost:27017/warehouse-react")
+mongoose.connect(process.env.MONGO_URI)
 .then(() => {
   app.listen(port, () => {
     console.log(`Server Started at ${port}`);
