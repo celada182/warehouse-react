@@ -1,7 +1,14 @@
 const Product = require("../model/product.model");
 const Article = require("../model/article.model");
+
 const importProducts = (req, res) => {
-  readRequest(req.body, res);
+  if (!body.products) {
+    res.status(400)
+    res.json({error: "Invalid request"});
+  }
+  body.products.forEach(article => insertProduct(article));
+  res.status(201);
+  res.json({message: "Products saved"});
 };
 
 const getProducts = async (req, res) => {
@@ -12,7 +19,9 @@ const getProducts = async (req, res) => {
       {skip: offset, limit: pageSize});
   for (const product of products) {
     const processedProduct = await processProduct(product);
-    response.push(processedProduct);
+    if (processedProduct.stock > 0) {
+      response.push(processedProduct);
+    }
   }
   res.json(response);
 }
@@ -24,7 +33,7 @@ const sellProduct = async (req, res) => {
   const articles = await findArticles(product.contain_articles);
   const stock = calculateStock(product.contain_articles, articles);
   const isAvailable = stock >= amount;
-  if (isAvailable){
+  if (isAvailable) {
     await updateArticles(product.contain_articles, articles, amount);
     res.json({message: "Products sold"});
   } else {
@@ -46,18 +55,6 @@ async function processProduct(product) {
   const articles = await findArticles(json.contain_articles);
   const stock = calculateStock(json.contain_articles, articles);
   return {name: product.name, stock: stock};
-}
-
-function readRequest(body, res) {
-  if (!body.products) {
-    res.status(400)
-    res.json({error: "Invalid request"});
-  }
-  body.products.forEach(article => {
-    insertProduct(article)
-  });
-  res.status(201);
-  res.json({message: "Products saved"});
 }
 
 function insertProduct(product) {
