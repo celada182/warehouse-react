@@ -16,15 +16,17 @@ function readRequest(body, res) {
 
 function upsertArticle(article) {
   if (article.art_id) {
-    console.log("Updating article:", article.art_id);
-    const dto = new Article({
-      art_id: article.art_id,
-      name: article.name,
-      stock: article.stock
+    let stock = article.stock;
+    Article.findOne({_id: article.art_id})
+    .then(existingArticle => {
+      if (existingArticle) {
+        stock = +stock + +existingArticle.stock;
+      }
+      Article.updateOne({_id: article.art_id},
+          {stock: stock, name: article.name}, {upsert: true})
+      .catch(error => console.error("Error updating article:", article.art_id,
+          error));
     });
-    dto.save()
-    .then(() => console.log("Updated article:", article.art_id))
-    .catch(error => console.error("Error updating article:", article.art_id, error))
   }
 }
 

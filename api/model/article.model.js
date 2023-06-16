@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const article = new Schema({
-  art_id: String,
+  _id: String,
   name: String,
   stock: Number
 });
