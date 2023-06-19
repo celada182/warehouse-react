@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {Product} from "@/components/product/product";
+import {Product, ProductComponent} from "@/components/product/product";
 
-type props = {
+type ProductListProps = {
   products: [Product]
 }
 
-export class ProductList extends Component<props, {}> {
+export class ProductListComponent extends Component<ProductListProps, any> {
   render() {
     return (
         <div>
-          {this.props.products.map(product => (<Product product={product}></Product>))}
+          {this.props.products.map(product => (<ProductComponent product={product}></ProductComponent>))}
         </div>
     );
   }
