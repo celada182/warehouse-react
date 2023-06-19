@@ -8,8 +8,6 @@ services:
       - api
     ports:
       - '3000:3000'
-    command:
-      - npm run start
   api:
     build: ../api/
     container_name: warehouse_api
