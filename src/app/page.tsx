@@ -1,6 +1,6 @@
 "use client";
 
-import {useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {ProductListComponent} from "@/components/productList/productList";
 
 export default function Home() {
@@ -8,38 +8,46 @@ export default function Home() {
   const [productFile] = useState("");
   const [products, setProducts] = useState([]);
 
-  fetch('http://localhost:8080/product')
-  .then(res => res.json())
-  .then(data => {
-    setProducts(data);
-  });
+  useEffect(() => getProducts, []);
 
-  const handleInventoryInput = (e) => {
-    const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files[0], "UTF-8");
-    fileReader.onload = e => {
-      const data = JSON.parse(e.target?.result);
-      postFile('inventory', data);
-    };
+  const getProducts = () => {
+    fetch('http://localhost:8080/product')
+    .then(res => res.json())
+    .then(data => setProducts(data));
   };
 
-  const handleProductInput = (e) => {
+  const handleInventoryInput = (e: ChangeEvent<HTMLInputElement>) => {
     const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files[0], "UTF-8");
-    fileReader.onload = e => {
-      const data = JSON.parse(e.target?.result);
-      postFile('product', data);
-    };
+    if (e.target.files) {
+      fileReader.readAsText(e.target.files[0], "UTF-8");
+      fileReader.onload = e => {
+        if (!e.target) return;
+        const data = JSON.parse(e.target.result as string);
+        postFile('inventory', data);
+      };
+    }
   };
 
-  const postFile = (endpoint, data) => {
+  const handleProductInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const fileReader = new FileReader();
+    if (e.target.files) {
+      fileReader.readAsText(e.target.files[0], "UTF-8");
+      fileReader.onload = e => {
+        if (!e.target) return;
+        const data = JSON.parse(e.target.result as string);
+        postFile('product', data);
+      };
+    }
+  };
+
+  const postFile = (endpoint: string, data: object) => {
     const requestOptions = {
       method: 'POST',
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
       body: JSON.stringify(data)
     };
     fetch('http://localhost:8080/' + endpoint, requestOptions)
-    .then(res => console.log(res));
+    .then(getProducts);
   };
 
   return (
@@ -55,7 +63,7 @@ export default function Home() {
         </div>
 
         <div>
-          <ProductListComponent products={products}></ProductListComponent>
+          <ProductListComponent products={products} onBuy={getProducts}></ProductListComponent>
         </div>
       </main>
   )

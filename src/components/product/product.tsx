@@ -6,7 +6,8 @@ export type Product = {
 }
 
 type ProductProps = {
-  product: Product
+  product: Product,
+  onBuy: () => void
 }
 
 type ProductState = {
@@ -19,15 +20,13 @@ export class ProductComponent extends Component<ProductProps, ProductState> {
     amount: 0
   }
 
-  handleBuyProduct (product, amount) {
-    console.log(product);
-    console.log(amount);
+  handleBuyProduct (product: Product, amount: number) {
     const requestOptions = {
       method: 'PUT',
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
     };
     fetch(`http://localhost:8080/product?name=${product.name}&amount=${amount}`, requestOptions)
-    .then(res => console.log(res));
+    .then(this.props.onBuy);
   }
 
   render() {
