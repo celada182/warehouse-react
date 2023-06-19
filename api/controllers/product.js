@@ -76,6 +76,9 @@ function calculateStock(contain_articles, articles) {
     const article = articles.find(a => a._id === contain_article.art_id);
     const availableProducts = Math.floor(
         article.stock / contain_article.amount_of);
+    if (availableProducts === 0) {
+      return 0;
+    }
     if (stock === 0) {
       stock = availableProducts;
     }
