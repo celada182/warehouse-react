@@ -1,19 +1,15 @@
 const Article = require('../model/article.model');
-const importInventory = (req, res, next) => {
-  readRequest(req.body, res);
-};
-
-function readRequest(body, res) {
-  if (!body.inventory) {
+const importInventory = (req, res) => {
+  if (!req.body.inventory) {
     res.status(400)
     res.json({error: "Invalid request"});
   }
-  body.inventory.forEach(article => {
+  req.body.inventory.forEach(article => {
     upsertArticle(article)
   });
   res.status(201);
   res.json({message: "Inventory saved"});
-}
+};
 
 function upsertArticle(article) {
   // TODO Input Validation

@@ -2,11 +2,11 @@ const Product = require("../model/product.model");
 const Article = require("../model/article.model");
 
 const importProducts = (req, res) => {
-  if (!body.products) {
+  if (!req.body.products) {
     res.status(400)
     res.json({error: "Invalid request"});
   }
-  body.products.forEach(article => insertProduct(article));
+  req.body.products.forEach(article => insertProduct(article));
   res.status(201);
   res.json({message: "Products saved"});
 };
