@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Product, ProductComponent} from "@/components/product/product";
 
-type ProductListProps = {
-  onImport: () => void
-}
+type ProductListProps = {}
 
 type ProductListState = {
   products: Product[],

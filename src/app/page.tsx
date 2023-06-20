@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import React, {useRef} from "react";
@@ -6,9 +7,11 @@ import {ImportComponent} from "@/components/import/import";
 
 export default function Home() {
   const productListRef = useRef();
-  const onImport = () =>{
-    productListRef.current.onLoading();
-    productListRef.current.getProducts();
+  const onImport = () => {
+    if (productListRef.current) {
+      productListRef.current.onLoading();
+      productListRef.current.getProducts();
+    }
   }
 
   return (

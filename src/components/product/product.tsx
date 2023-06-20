@@ -7,6 +7,8 @@ export type Product = {
 
 type ProductProps = {
   product: Product,
+  key: string,
+  children: never[],
   onBuy: () => void,
   onLoading: () => void
 }
