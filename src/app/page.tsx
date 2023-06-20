@@ -1,25 +1,21 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useRef} from "react";
 import {ProductListComponent} from "@/components/productList/productList";
 import {ImportComponent} from "@/components/import/import";
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => getProducts, []);
-
-  const getProducts = () => {
-    fetch('http://localhost:8080/product')
-    .then(res => res.json())
-    .then(data => setProducts(data));
-  };
+  const productListRef = useRef();
+  const onImport = () =>{
+    productListRef.current.onLoading();
+    productListRef.current.getProducts();
+  }
 
   return (
       <main>
         <h1>Warehouse</h1>
-        <ImportComponent onImport={getProducts}/>
-        <ProductListComponent products={products} onBuy={getProducts}/>
+        <ImportComponent onImport={onImport}/>
+        <ProductListComponent ref={productListRef}/>
       </main>
   )
 }
