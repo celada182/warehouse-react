@@ -29,6 +29,11 @@ const getProducts = async (req, res) => {
 const sellProduct = async (req, res) => {
   const name = req.query.name;
   const amount = req.query.amount;
+  if (amount < 1 || !name) {
+    res.status(400);
+    res.json({error: "Invalid sell product request"});
+    return;
+  }
   const product = await Product.findOne({name: name});
   const articles = await findArticles(product.contain_articles);
   const stock = calculateStock(product.contain_articles, articles);

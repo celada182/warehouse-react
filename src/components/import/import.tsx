@@ -48,14 +48,12 @@ export class ImportComponent extends Component<ImportProps, ImportState> {
           <input type="file"
                  value={this.state.inventoryFile}
                  onChange={(e) => this.handleImport(e, 'inventory')}
-                 disabled={this.state.loading}
-          />
+                 disabled={this.state.loading}/>
           <label>Import Product JSON</label>
           <input type="file"
                  value={this.state.productFile}
                  onChange={(e) => this.handleImport(e, 'product')}
-                 disabled={this.state.loading}
-          />
+                 disabled={this.state.loading}/>
           <p style={{visibility: this.state.loading ? 'visible' : 'hidden'}}>Loading...</p>
         </div>
     );

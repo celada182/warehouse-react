@@ -39,9 +39,14 @@ export class ProductComponent extends Component<ProductProps, ProductState> {
         <div>
           <p>{this.props.product.name}</p>
           <p>{this.props.product.stock}</p>
-          <input type="number" value={this.state.amount}
-                 onChange={event => this.setState({amount: +event.target.value})}/>
-          <button onClick={() => this.handleBuyProduct(this.props.product, this.state.amount)}>BUY
+          <input
+              type="number"
+              min="1"
+              value={this.state.amount}
+              onChange={event => this.setState({amount: +event.target.value})}
+          />
+          <button onClick={() => this.handleBuyProduct(this.props.product, this.state.amount)}>
+            BUY
           </button>
         </div>
     );

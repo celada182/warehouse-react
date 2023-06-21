@@ -46,7 +46,7 @@ paths:
                 type: object
                 properties:
                   error:
-                    message: string
+                    type: string
         '400':
           description: Invalid request
           content:
@@ -63,8 +63,13 @@ paths:
       parameters:
         - name: name
           in: query
+          required: true
         - name: amount
           in: query
+          required: true
+          schema:
+            type: number
+            minimum: 1
       responses:
         '200':
           description: Inventory updated
@@ -74,6 +79,15 @@ paths:
                 type: object
                 properties:
                   message:
+                    type: string
+        '400':
+          description: Invalid sell parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
                     type: string
         '404':
           description: Product not available
