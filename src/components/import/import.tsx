@@ -7,14 +7,16 @@ type ImportProps = {
 type ImportState = {
   inventoryFile: string,
   productFile: string,
-  loading: boolean
+  loading: boolean,
+  apiBasePath: string
 }
 
 export class ImportComponent extends Component<ImportProps, ImportState> {
   state: ImportState = {
     inventoryFile: "",
     productFile: "",
-    loading: false
+    loading: false,
+    apiBasePath: "http://localhost:8080"
   }
 
   postFile(endpoint: string, data: object) {
@@ -24,13 +26,13 @@ export class ImportComponent extends Component<ImportProps, ImportState> {
       body: JSON.stringify(data)
     };
     this.setState({loading: true});
-    fetch('http://localhost:8080/' + endpoint, requestOptions)
+    fetch(this.state.apiBasePath + '/' + endpoint, requestOptions)
     .then(res => res.json())
     .then(res => {
-        if (res.error){
-          alert(res.error);
-        }
-        this.setState({loading: false});
+      if (res.error) {
+        alert(res.error);
+      }
+      this.setState({loading: false});
     })
     .then(this.props.onImport);
   };

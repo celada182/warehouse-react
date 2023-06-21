@@ -14,14 +14,15 @@ type ProductProps = {
 }
 
 type ProductState = {
-  amount: number
+  amount: number,
+  apiBasePath: string
 }
 
 export class ProductComponent extends Component<ProductProps, ProductState> {
 
-  API_BASE_PATH = "http://localhost:8080/";
   state: ProductState = {
-    amount: 1
+    amount: 1,
+    apiBasePath: "http://localhost:8080"
   }
 
   handleBuyProduct(product: Product, amount: number) {
@@ -30,7 +31,7 @@ export class ProductComponent extends Component<ProductProps, ProductState> {
       method: 'PUT',
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
     };
-    fetch(`${this.API_BASE_PATH}product?name=${product.name}&amount=${amount}`, requestOptions)
+    fetch(`${this.state.apiBasePath}/product?name=${product.name}&amount=${amount}`, requestOptions)
     .then(res => res.json())
     .then(res => {
       if (res.error) {

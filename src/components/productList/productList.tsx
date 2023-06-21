@@ -5,18 +5,21 @@ type ProductListProps = {}
 
 type ProductListState = {
   products: Product[],
-  loading: boolean
+  loading: boolean,
+  apiBasePath: string
 }
 
 export class ProductListComponent extends Component<ProductListProps, ProductListState> {
 
   state: ProductListState = {
     products: [],
-    loading: false
+    loading: false,
+    // apiBasePath: process.env.REACT_APP_API_BASE_PATH
+    apiBasePath: "http://localhost:8080"
   }
 
   getProducts() {
-    fetch('http://localhost:8080/product')
+    fetch(this.state.apiBasePath + '/product')
     .then(res => res.json())
     .then(data => this.setState({products: data}))
     .then(() => this.setState({loading: false}));
