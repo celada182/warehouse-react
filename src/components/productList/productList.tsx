@@ -36,7 +36,15 @@ export class ProductListComponent extends Component<ProductListProps, ProductLis
   render() {
     return (
         <div>
-          <p style={{visibility: this.state.loading ? 'visible' : 'hidden'}}>Loading...</p>
+          <div className={"row"}>
+            <div className={"col"}>Producto</div>
+            <div className={"col"}>Unidades disponibles</div>
+            <div className={"col"}></div>
+            <div className={"col"}></div>
+          </div>
+          <div className={"row"}>
+            <p style={{visibility: this.state.loading ? 'visible' : 'hidden'}}>Loading...</p>
+          </div>
           <div style={{visibility: this.state.loading ? 'hidden' : 'visible'}}>
             {this.state.products.map(product => (
                 <ProductComponent

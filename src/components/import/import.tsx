@@ -43,17 +43,21 @@ export class ImportComponent extends Component<ImportProps, ImportState> {
 
   render() {
     return (
-        <div>
-          <label>Import Inventory JSON</label>
-          <input type="file"
-                 value={this.state.inventoryFile}
-                 onChange={(e) => this.handleImport(e, 'inventory')}
-                 disabled={this.state.loading}/>
-          <label>Import Product JSON</label>
-          <input type="file"
-                 value={this.state.productFile}
-                 onChange={(e) => this.handleImport(e, 'product')}
-                 disabled={this.state.loading}/>
+        <div className={"row"}>
+          <div className={"col"}>
+            <label className={"form-label"}>Import Inventory</label>
+            <input className={"form-control"} type="file"
+                   value={this.state.inventoryFile}
+                   onChange={(e) => this.handleImport(e, 'inventory')}
+                   disabled={this.state.loading}/>
+          </div>
+          <div className={"col"}>
+            <label className={"form-label"}>Import Products</label>
+            <input className={"form-control"} type="file"
+                   value={this.state.productFile}
+                   onChange={(e) => this.handleImport(e, 'product')}
+                   disabled={this.state.loading}/>
+          </div>
           <p style={{visibility: this.state.loading ? 'visible' : 'hidden'}}>Loading...</p>
         </div>
     );

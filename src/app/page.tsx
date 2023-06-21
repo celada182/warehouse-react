@@ -4,6 +4,7 @@
 import React, {useRef} from "react";
 import {ProductListComponent} from "@/components/productList/productList";
 import {ImportComponent} from "@/components/import/import";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
   const productListRef = useRef();
@@ -15,7 +16,7 @@ export default function Home() {
   }
 
   return (
-      <main>
+      <main className={"container text-center"}>
         <h1>Warehouse</h1>
         <ImportComponent onImport={onImport}/>
         <ProductListComponent ref={productListRef}/>

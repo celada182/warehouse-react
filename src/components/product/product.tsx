@@ -21,7 +21,7 @@ export class ProductComponent extends Component<ProductProps, ProductState> {
 
   API_BASE_PATH = "http://localhost:8080/";
   state: ProductState = {
-    amount: 0
+    amount: 1
   }
 
   handleBuyProduct(product: Product, amount: number) {
@@ -36,18 +36,22 @@ export class ProductComponent extends Component<ProductProps, ProductState> {
 
   render() {
     return (
-        <div>
-          <p>{this.props.product.name}</p>
-          <p>{this.props.product.stock}</p>
-          <input
-              type="number"
-              min="1"
-              value={this.state.amount}
-              onChange={event => this.setState({amount: +event.target.value})}
-          />
-          <button onClick={() => this.handleBuyProduct(this.props.product, this.state.amount)}>
-            BUY
-          </button>
+        <div className={"row p-1"}>
+          <div className={"col"}>{this.props.product.name}</div>
+          <div className={"col"}>{this.props.product.stock}</div>
+          <div className={"col"}>
+            <input className={"form-control"}
+                type="number"
+                min="1"
+                value={this.state.amount}
+                onChange={event => this.setState({amount: +event.target.value})}
+            />
+          </div>
+          <div className={"col"}>
+            <button type="button" className={"btn btn-success btn-sm"} onClick={() => this.handleBuyProduct(this.props.product, this.state.amount)}>
+              BUY
+            </button>
+          </div>
         </div>
     );
   }
