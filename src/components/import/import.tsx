@@ -25,7 +25,13 @@ export class ImportComponent extends Component<ImportProps, ImportState> {
     };
     this.setState({loading: true});
     fetch('http://localhost:8080/' + endpoint, requestOptions)
-    .then(() => this.setState({loading: false}))
+    .then(res => res.json())
+    .then(res => {
+        if (res.error){
+          alert(res.error);
+        }
+        this.setState({loading: false});
+    })
     .then(this.props.onImport);
   };
 

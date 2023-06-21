@@ -31,7 +31,13 @@ export class ProductComponent extends Component<ProductProps, ProductState> {
       headers: {'Content-Type': 'application/json', 'Accept': 'application/json'}
     };
     fetch(`${this.API_BASE_PATH}product?name=${product.name}&amount=${amount}`, requestOptions)
-    .then(this.props.onBuy);
+    .then(res => res.json())
+    .then(res => {
+      if (res.error) {
+        alert(res.error);
+      }
+      this.props.onBuy();
+    })
   }
 
   render() {

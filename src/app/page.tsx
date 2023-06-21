@@ -17,7 +17,6 @@ export default function Home() {
 
   return (
       <main className={"container text-center"}>
-        <h1>Warehouse</h1>
         <ImportComponent onImport={onImport}/>
         <ProductListComponent ref={productListRef}/>
       </main>

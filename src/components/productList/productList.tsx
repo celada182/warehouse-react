@@ -37,8 +37,8 @@ export class ProductListComponent extends Component<ProductListProps, ProductLis
     return (
         <div>
           <div className={"row"}>
-            <div className={"col"}>Producto</div>
-            <div className={"col"}>Unidades disponibles</div>
+            <div className={"col"}>Products</div>
+            <div className={"col"}>Available</div>
             <div className={"col"}></div>
             <div className={"col"}></div>
           </div>
