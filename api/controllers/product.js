@@ -12,8 +12,19 @@ const importProducts = (req, res) => {
 };
 
 const getProducts = async (req, res) => {
-  const pageSize = req.query.page_size || process.env.DEAFULT_PAGE_SIZE;
-  const offset = req.query.offset || 0;
+  let pageSize = req.query.page_size;
+  let offset = req.query.offset;
+  if (!pageSize) {
+    pageSize = process.env.DEAFULT_PAGE_SIZE;
+  }
+  if (!offset) {
+    offset = 0;
+  }
+  if (pageSize < 1 || offset < 0) {
+    res.status(400)
+    res.json({error: "Invalid request"});
+    return;
+  }
   let response = [];
   const products = await Product.find({}, null,
       {skip: offset, limit: pageSize});

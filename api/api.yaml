@@ -14,9 +14,15 @@ paths:
       parameters:
         - name: page_size
           in: query
+          schema:
+            type: number
+            minimum: 1
           example: 10
         - name: offset
           in: query
+          schema:
+            type: number
+            minimum: 0
           example: 0
       responses:
         '200':
@@ -27,6 +33,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ProductAvailable'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
     post:
       summary: Import products
       tags:
