@@ -16,6 +16,7 @@ export class ImportComponent extends Component<ImportProps, ImportState> {
     inventoryFile: "",
     productFile: "",
     loading: false,
+    // TODO Environment configuration
     apiBasePath: "http://localhost:8080"
   }
 

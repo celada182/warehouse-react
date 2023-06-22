@@ -12,7 +12,6 @@ const importInventory = (req, res) => {
 };
 
 function upsertArticle(article) {
-  // TODO Input Validation
   if (article.art_id) {
     let stock = article.stock;
     Article.findOne({_id: article.art_id})

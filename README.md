@@ -1,7 +1,8 @@
 # Warehouse MERN
 
-- Node version v16.19.1
-- NPM v8.19.3
+- Node (v16.19.1)
+- NPM (v8.19.3)
+- Docker (v24.0.2)
 
 ## API
 
@@ -9,6 +10,12 @@
 - Install `cd /api` `npm i`
 - DB container `docker compose -f docker/docker-compose-database.yml up -d`
 - Start `cd /api` `npm run start`
+- http://localhost:8080
+- Environment variables [.env](.env)
+  - PORT
+  - MONGO_URI
+  - DEFAULT_PAGE_SIZE
+  - CORS
 
 ## App
 
@@ -17,6 +24,7 @@
 - Backend Container `docker compose -f docker/docker-compose-backend.yml up -d`
 - Start Dev `npm run dev`
 - Build `npm run build`
+- https://localhost:3000
 
 ## Run
 

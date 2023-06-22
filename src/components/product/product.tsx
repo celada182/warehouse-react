@@ -22,6 +22,7 @@ export class ProductComponent extends Component<ProductProps, ProductState> {
 
   state: ProductState = {
     amount: 1,
+    // TODO Environment configuration
     apiBasePath: "http://localhost:8080"
   }
 

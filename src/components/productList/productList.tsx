@@ -14,7 +14,7 @@ export class ProductListComponent extends Component<ProductListProps, ProductLis
   state: ProductListState = {
     products: [],
     loading: false,
-    // apiBasePath: process.env.REACT_APP_API_BASE_PATH
+    // TODO Environment configuration
     apiBasePath: "http://localhost:8080"
   }
 
